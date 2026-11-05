@@ -36,11 +36,11 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 1 — Package skeleton and tooling
 
-- [ ] `backend/pyproject.toml` for a `repopilot` package on Python 3.13+.
-- [ ] Runtime deps reserved for later steps are not required yet; include what this step needs to import a package and run Ruff and pytest.
-- [ ] `backend/app/__init__.py`, `backend/tests/unit/`.
-- [ ] Ruff configuration and a root `.gitignore`.
-- [ ] Smoke test that imports the package.
+- [x] `backend/pyproject.toml` for a `repopilot` package on Python 3.13+.
+- [x] Runtime deps reserved for later steps are not required yet; include what this step needs to import a package and run Ruff and pytest.
+- [x] `backend/app/__init__.py`, `backend/tests/unit/`.
+- [x] Ruff configuration and a root `.gitignore`.
+- [x] Smoke test that imports the package.
 
 **Test:** `ruff check` and `pytest` pass.  
 **Commit:** `chore: add Python package skeleton`
