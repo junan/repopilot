@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Autonomous software engineering agent"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pydantic-settings>=2.7",
+]
 
 [project.optional-dependencies]
 dev = [

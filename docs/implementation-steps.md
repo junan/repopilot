@@ -47,10 +47,10 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 2 — Environment configuration
 
-- [ ] `app/core/config.py` using pydantic-settings.
-- [ ] Settings for app name, environment, and `database_url`.
-- [ ] `.env.example` with the local Postgres URL and no secrets.
-- [ ] Unit tests for defaults and invalid or missing database URL.
+- [x] `app/core/config.py` using pydantic-settings.
+- [x] Settings for app name, environment, and `database_url`.
+- [x] `.env.example` with the local Postgres URL and no secrets.
+- [x] Unit tests for defaults and invalid or missing database URL.
 
 **Test:** settings tests pass without a running database.  
 **Commit:** `feat: load service configuration from the environment`
