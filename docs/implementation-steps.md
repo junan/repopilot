@@ -66,9 +66,9 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 4 — Local PostgreSQL
 
-- [ ] Root `docker-compose.yml` with PostgreSQL 16, a named volume, and a healthcheck.
-- [ ] Credentials match `.env.example`.
-- [ ] README section with the compose command and the resulting connection string.
+- [x] Root `docker-compose.yml` with PostgreSQL 16, a named volume, and a healthcheck.
+- [x] Credentials match `.env.example`.
+- [x] README section with the compose command and the resulting connection string.
 
 **Test:** `docker compose config` is valid. Postgres becomes healthy with the documented command.  
 **Commit:** `chore: add local PostgreSQL compose stack`
