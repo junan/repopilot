@@ -57,9 +57,9 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 3 — FastAPI app and health check
 
-- [ ] Application factory in `app/main.py`.
-- [ ] `GET /health` returns a small JSON payload.
-- [ ] Tests through the ASGI test client.
+- [x] Application factory in `app/main.py`.
+- [x] `GET /health` returns a small JSON payload.
+- [x] Tests through the ASGI test client.
 
 **Test:** health endpoint returns 200. Unknown routes return 404.  
 **Commit:** `feat: add FastAPI app and health endpoint`

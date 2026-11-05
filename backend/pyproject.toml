@@ -5,11 +5,13 @@ description = "Autonomous software engineering agent"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "fastapi>=0.115",
     "pydantic-settings>=2.7",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "httpx>=0.28",
     "pytest>=8.3",
     "ruff>=0.9",
 ]
