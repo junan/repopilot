@@ -18,10 +18,10 @@ Wait until the service is healthy:
 docker compose ps
 ```
 
-Connection string (matches `.env.example`):
+Connection string (matches `.env.example`). Host port `55432` avoids clashes with a local Postgres on `5432`:
 
 ```text
-postgresql://repopilot:repopilot@localhost:5432/repopilot
+postgresql://repopilot:repopilot@localhost:55432/repopilot
 ```
 
 Stop the database with:

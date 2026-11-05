@@ -75,11 +75,11 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 5 — Database session and Task model
 
-- [ ] SQLAlchemy 2 engine and session factory wired to settings.
-- [ ] `tasks` model: id, description, status, idempotency key, timestamps.
-- [ ] Unique constraint on the idempotency key.
-- [ ] Status values include `PENDING`, `PLANNING`, `EXECUTING`, `VALIDATING`, `AWAITING_APPROVAL`, `COMPLETED`, `FAILED`, and `CANCELLED`.
-- [ ] Model tests cover required fields and the unique key.
+- [x] SQLAlchemy 2 engine and session factory wired to settings.
+- [x] `tasks` model: id, description, status, idempotency key, timestamps.
+- [x] Unique constraint on the idempotency key.
+- [x] Status values include `PENDING`, `PLANNING`, `EXECUTING`, `VALIDATING`, `AWAITING_APPROVAL`, `COMPLETED`, `FAILED`, and `CANCELLED`.
+- [x] Model tests cover required fields and the unique key.
 
 **Test:** model tests pass on PostgreSQL.  
 **Commit:** `feat: add task persistence model`
