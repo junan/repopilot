@@ -86,10 +86,10 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 6 — Alembic migrations
 
-- [ ] Alembic reads the same metadata and database URL as the app.
-- [ ] Initial revision creates `tasks`.
-- [ ] Test upgrades a fresh database to head and checks the table exists.
-- [ ] Downgrade drops what the revision created.
+- [x] Alembic reads the same metadata and database URL as the app.
+- [x] Initial revision creates `tasks`.
+- [x] Test upgrades a fresh database to head and checks the table exists.
+- [x] Downgrade drops what the revision created.
 
 **Test:** upgrade and downgrade succeed on an empty database.  
 **Commit:** `feat: add initial tasks migration`
