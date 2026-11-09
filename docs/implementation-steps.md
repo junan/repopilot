@@ -96,12 +96,12 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 7 — Task service
 
-- [ ] Create, list, and get tasks.
-- [ ] New tasks start as `PENDING`.
-- [ ] Repeating the same idempotency key and same body returns the original task.
-- [ ] The same key with a different body is rejected.
-- [ ] Missing task is a typed not-found error.
-- [ ] A pure transition function encodes legal status changes, with tests. No endpoint exposes transitions yet.
+- [x] Create, list, and get tasks.
+- [x] New tasks start as `PENDING`.
+- [x] Repeating the same idempotency key and same body returns the original task.
+- [x] The same key with a different body is rejected.
+- [x] Missing task is a typed not-found error.
+- [x] A pure transition function encodes legal status changes, with tests. No endpoint exposes transitions yet.
 
 **Test:** service tests cover create, replay, conflict, not found, and illegal transitions.  
 **Commit:** `feat: add task service with idempotency`
