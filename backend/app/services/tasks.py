@@ -3,12 +3,21 @@
 from __future__ import annotations
 
 import uuid
+from dataclasses import dataclass
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.models.task import Task, TaskStatus
 from app.services.errors import IdempotencyConflictError, TaskNotFoundError
+
+
+@dataclass(frozen=True)
+class CreateTaskResult:
+    """Outcome of a create-or-replay operation."""
+
+    task: Task
+    created: bool
 
 
 class TaskService:
@@ -22,14 +31,14 @@ class TaskService:
         description: str,
         *,
         idempotency_key: str | None = None,
-    ) -> Task:
+    ) -> CreateTaskResult:
         """Create a task, or replay a prior create for the same idempotency key."""
         if idempotency_key is not None:
             existing = self._find_by_idempotency_key(idempotency_key)
             if existing is not None:
                 if existing.description != description:
                     raise IdempotencyConflictError(idempotency_key)
-                return existing
+                return CreateTaskResult(task=existing, created=False)
 
         task = Task(
             description=description,
@@ -38,7 +47,7 @@ class TaskService:
         )
         self._session.add(task)
         self._session.flush()
-        return task
+        return CreateTaskResult(task=task, created=True)
 
     def get(self, task_id: uuid.UUID) -> Task:
         """Return a task by id or raise TaskNotFoundError."""

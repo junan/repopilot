@@ -108,10 +108,10 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 8 — Task HTTP API
 
-- [ ] `POST /tasks`, `GET /tasks`, `GET /tasks/{id}`.
-- [ ] Request and response schemas. Description is required and length-limited.
-- [ ] `201` on create, `200` on replay of the same idempotency key, `404` on missing id, `422` on invalid input, `409` on an idempotency conflict.
-- [ ] Errors use one JSON shape with a stable code and a human-readable message.
+- [x] `POST /tasks`, `GET /tasks`, `GET /tasks/{id}`.
+- [x] Request and response schemas. Description is required and length-limited.
+- [x] `201` on create, `200` on replay of the same idempotency key, `404` on missing id, `422` on invalid input, `409` on an idempotency conflict.
+- [x] Errors use one JSON shape with a stable code and a human-readable message.
 
 **Test:** API tests hit a real database and cover the cases above.  
 **Commit:** `feat: expose task create, list, and get endpoints`

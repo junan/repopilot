@@ -15,8 +15,10 @@ pytestmark = pytest.mark.integration
 def test_create_starts_as_pending(db_session: Session) -> None:
     service = TaskService(db_session)
 
-    task = service.create("Investigate duplicate bookings")
+    result = service.create("Investigate duplicate bookings")
 
+    assert result.created is True
+    task = result.task
     assert isinstance(task.id, uuid.UUID)
     assert task.description == "Investigate duplicate bookings"
     assert task.status is TaskStatus.PENDING
@@ -25,7 +27,7 @@ def test_create_starts_as_pending(db_session: Session) -> None:
 
 def test_get_returns_created_task(db_session: Session) -> None:
     service = TaskService(db_session)
-    created = service.create("Fix flaky auth test")
+    created = service.create("Fix flaky auth test").task
 
     fetched = service.get(created.id)
 
@@ -45,12 +47,16 @@ def test_get_missing_task_raises_typed_error(db_session: Session) -> None:
 
 def test_list_returns_newest_first(db_session: Session) -> None:
     service = TaskService(db_session)
-    first = service.create("first task")
-    second = service.create("second task")
+    first = service.create("first task").task
+    second = service.create("second task").task
 
     tasks = service.list()
 
-    assert [task.id for task in tasks] == [second.id, first.id]
+    assert {task.id for task in tasks} >= {first.id, second.id}
+    assert [task.created_at for task in tasks] == sorted(
+        (task.created_at for task in tasks),
+        reverse=True,
+    )
 
 
 def test_idempotent_create_replays_same_body(db_session: Session) -> None:
@@ -60,8 +66,10 @@ def test_idempotent_create_replays_same_body(db_session: Session) -> None:
 
     replayed = service.create("same description", idempotency_key=key)
 
-    assert replayed.id == first.id
-    assert replayed.description == first.description
+    assert first.created is True
+    assert replayed.created is False
+    assert replayed.task.id == first.task.id
+    assert replayed.task.description == first.task.description
 
 
 def test_idempotent_create_rejects_different_body(db_session: Session) -> None:

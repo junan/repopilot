@@ -11,10 +11,11 @@ from app.services.task_transitions import (
     can_transition,
     validate_transition,
 )
-from app.services.tasks import TaskService
+from app.services.tasks import CreateTaskResult, TaskService
 
 __all__ = [
     "ALLOWED_TRANSITIONS",
+    "CreateTaskResult",
     "IdempotencyConflictError",
     "IllegalTaskTransitionError",
     "TaskNotFoundError",
