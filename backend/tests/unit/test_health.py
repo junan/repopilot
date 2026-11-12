@@ -1,8 +1,9 @@
 """ASGI tests for the health endpoint."""
 
+from fastapi.testclient import TestClient
+
 from app.core.config import Settings
 from app.main import create_app
-from fastapi.testclient import TestClient
 
 
 def _client() -> TestClient:

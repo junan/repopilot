@@ -5,9 +5,10 @@ from __future__ import annotations
 import uuid
 
 import pytest
+from sqlalchemy.orm import Session
+
 from app.models import TaskStatus
 from app.services import IdempotencyConflictError, TaskNotFoundError, TaskService
-from sqlalchemy.orm import Session
 
 pytestmark = pytest.mark.integration
 

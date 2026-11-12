@@ -1,8 +1,9 @@
 """Unit tests for environment settings."""
 
 import pytest
-from app.core.config import Settings, get_settings
 from pydantic import ValidationError
+
+from app.core.config import Settings, get_settings
 
 
 def test_defaults_when_database_url_provided() -> None:

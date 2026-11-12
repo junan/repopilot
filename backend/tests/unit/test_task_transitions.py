@@ -1,6 +1,7 @@
 """Unit tests for the pure task status transition map."""
 
 import pytest
+
 from app.models import TaskStatus
 from app.services import (
     ALLOWED_TRANSITIONS,

@@ -118,9 +118,9 @@ Acceptance for the whole iteration: documented commands start the app, migration
 
 ### Step 9 — Local run workflow
 
-- [ ] Document install, compose, migrate, serve, test, and lint commands in the README.
-- [ ] A single check command runs Ruff and pytest.
-- [ ] README demo: create a task with curl and fetch it back by id.
+- [x] Document install, compose, migrate, serve, test, and lint commands in the README.
+- [x] A single check command runs Ruff and pytest.
+- [x] README demo: create a task with curl and fetch it back by id.
 
 **Test:** the documented check command passes. The curl demo works against the compose database.  
 **Commit:** `docs: document the iteration 1 task API workflow`

@@ -9,10 +9,11 @@ from pathlib import Path
 import pytest
 from alembic import command
 from alembic.config import Config
+from sqlalchemy import Engine, inspect, text
+
 from app.core.config import get_settings
 from app.db.base import Base
 from app.models import Task  # noqa: F401 — register metadata
-from sqlalchemy import Engine, inspect, text
 
 pytestmark = pytest.mark.integration
 

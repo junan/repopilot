@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+if [[ -x "$ROOT/.venv/bin/ruff" ]]; then
+  RUFF="$ROOT/.venv/bin/ruff"
+  PYTEST="$ROOT/.venv/bin/pytest"
+else
+  RUFF="ruff"
+  PYTEST="pytest"
+fi
+
+"$RUFF" check app tests migrations
+"$PYTEST" "$@"

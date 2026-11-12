@@ -6,12 +6,13 @@ import uuid
 from collections.abc import Generator
 
 import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
+
 from app.api.deps import get_db
 from app.core.config import Settings
 from app.main import create_app
 from app.schemas.tasks import DESCRIPTION_MAX_LENGTH
-from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 pytestmark = pytest.mark.integration
 
