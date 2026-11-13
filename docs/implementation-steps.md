@@ -133,8 +133,8 @@ Acceptance: tooling finds relevant files in a demo repo. Path traversal and read
 
 ### Step 10 — Sample repository fixture
 
-- [ ] Small Python fixture under `examples/` with a booking handler and a failing or missing idempotency test.
-- [ ] The fixture is the only repo used by tool tests.
+- [x] Small Python fixture under `examples/` with a booking handler and a failing or missing idempotency test.
+- [x] The fixture is the only repo used by tool tests.
 
 **Commit:** `test: add booking sample repository`
 
