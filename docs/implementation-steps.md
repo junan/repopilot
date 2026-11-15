@@ -140,9 +140,9 @@ Acceptance: tooling finds relevant files in a demo repo. Path traversal and read
 
 ### Step 11 — Path policy
 
-- [ ] Resolve paths inside a workspace root.
-- [ ] Reject absolute paths, `..`, symlink escapes, secret-like filenames, and oversized files.
-- [ ] Unit tests for each rejection.
+- [x] Resolve paths inside a workspace root.
+- [x] Reject absolute paths, `..`, symlink escapes, secret-like filenames, and oversized files.
+- [x] Unit tests for each rejection.
 
 **Commit:** `feat: restrict repository paths to the workspace`
 
