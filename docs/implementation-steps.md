@@ -148,10 +148,10 @@ Acceptance: tooling finds relevant files in a demo repo. Path traversal and read
 
 ### Step 12 — Clone authorized repositories
 
-- [ ] Allowlist of repository URLs.
-- [ ] Clone at a pinned commit into a per-task workspace directory.
-- [ ] Refuse URLs that are not allowlisted.
-- [ ] Tests use the local fixture via a file URL or a copied tree so they do not need GitHub credentials.
+- [x] Allowlist of repository URLs.
+- [x] Clone at a pinned commit into a per-task workspace directory.
+- [x] Refuse URLs that are not allowlisted.
+- [x] Tests use the local fixture via a file URL or a copied tree so they do not need GitHub credentials.
 
 **Commit:** `feat: clone allowlisted repositories at a pinned commit`
 
