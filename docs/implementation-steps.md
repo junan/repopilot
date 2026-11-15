@@ -157,10 +157,10 @@ Acceptance: tooling finds relevant files in a demo repo. Path traversal and read
 
 ### Step 13 — List, read, and search tools
 
-- [ ] Typed tools: file tree, read file, text search.
-- [ ] Bounded results: depth, file count, bytes, and match count.
-- [ ] Structured responses, no raw shell.
-- [ ] Tests find the booking handler and its tests, and prove traversal is blocked.
+- [x] Typed tools: file tree, read file, text search.
+- [x] Bounded results: depth, file count, bytes, and match count.
+- [x] Structured responses, no raw shell.
+- [x] Tests find the booking handler and its tests, and prove traversal is blocked.
 
 **Commit:** `feat: add bounded repository list, read, and search tools`
 
