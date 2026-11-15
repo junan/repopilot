@@ -7,6 +7,9 @@
 credentials.json
 secrets/
 
+# Local planning docs (kept out of the public repo)
+RepoPilot_Project_Plan.md
+
 # Python
 __pycache__/
 *.py[cod]
