@@ -13,7 +13,7 @@ from sqlalchemy import Engine, inspect, text
 
 from app.core.config import get_settings
 from app.db.base import Base
-from app.models import Task  # noqa: F401 — register metadata
+from app.models import AgentRun, RunStep, Task  # noqa: F401 — register metadata
 
 pytestmark = pytest.mark.integration
 
@@ -55,14 +55,15 @@ def migrated_database(
         get_settings.cache_clear()
 
 
-def test_upgrade_creates_tasks_table(migrated_database: Engine) -> None:
+def test_upgrade_creates_task_run_and_step_tables(migrated_database: Engine) -> None:
     command.upgrade(_alembic_config(), "head")
 
     inspector = inspect(migrated_database)
-    assert "tasks" in inspector.get_table_names()
+    tables = set(inspector.get_table_names())
+    assert {"tasks", "agent_runs", "run_steps"} <= tables
 
-    columns = {column["name"] for column in inspector.get_columns("tasks")}
-    assert columns == {
+    task_columns = {column["name"] for column in inspector.get_columns("tasks")}
+    assert task_columns == {
         "id",
         "description",
         "status",
@@ -71,16 +72,65 @@ def test_upgrade_creates_tasks_table(migrated_database: Engine) -> None:
         "updated_at",
     }
 
-    unique_constraints = inspector.get_unique_constraints("tasks")
+    run_columns = {column["name"] for column in inspector.get_columns("agent_runs")}
+    assert run_columns == {
+        "id",
+        "task_id",
+        "attempt",
+        "status",
+        "checkpoint",
+        "prompt_tokens",
+        "completion_tokens",
+        "cost_usd",
+        "created_at",
+        "updated_at",
+        "started_at",
+        "finished_at",
+    }
+
+    step_columns = {column["name"] for column in inspector.get_columns("run_steps")}
+    assert step_columns == {
+        "id",
+        "run_id",
+        "sequence",
+        "action",
+        "status",
+        "result",
+        "created_at",
+        "started_at",
+        "finished_at",
+    }
+
+    run_uniques = inspector.get_unique_constraints("agent_runs")
     assert any(
-        constraint["column_names"] == ["idempotency_key"]
-        for constraint in unique_constraints
+        sorted(constraint["column_names"]) == ["attempt", "task_id"]
+        for constraint in run_uniques
+    )
+
+    step_uniques = inspector.get_unique_constraints("run_steps")
+    assert any(
+        sorted(constraint["column_names"]) == ["run_id", "sequence"]
+        for constraint in step_uniques
     )
 
 
-def test_downgrade_drops_tasks_table(migrated_database: Engine) -> None:
+def test_downgrade_to_base_drops_all_app_tables(migrated_database: Engine) -> None:
     command.upgrade(_alembic_config(), "head")
     command.downgrade(_alembic_config(), "base")
 
     inspector = inspect(migrated_database)
-    assert "tasks" not in inspector.get_table_names()
+    tables = set(inspector.get_table_names())
+    assert "tasks" not in tables
+    assert "agent_runs" not in tables
+    assert "run_steps" not in tables
+
+
+def test_downgrade_one_revision_keeps_tasks(migrated_database: Engine) -> None:
+    command.upgrade(_alembic_config(), "head")
+    command.downgrade(_alembic_config(), "20251105_0001")
+
+    inspector = inspect(migrated_database)
+    tables = set(inspector.get_table_names())
+    assert "tasks" in tables
+    assert "agent_runs" not in tables
+    assert "run_steps" not in tables

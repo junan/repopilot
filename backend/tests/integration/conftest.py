@@ -9,7 +9,7 @@ from sqlalchemy.orm import Session
 from app.core.config import Settings
 from app.db.base import Base
 from app.db.session import create_engine_from_settings
-from app.models import Task  # noqa: F401 — register metadata
+from app.models import AgentRun, RunStep, Task  # noqa: F401 — register metadata
 
 
 @pytest.fixture(scope="session")

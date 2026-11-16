@@ -10,7 +10,7 @@ from sqlalchemy import engine_from_config, pool
 from app.core.config import get_settings
 from app.db.base import Base
 from app.db.session import normalize_database_url
-from app.models import Task  # noqa: F401 — register metadata
+from app.models import AgentRun, RunStep, Task  # noqa: F401 — register metadata
 
 config = context.config
 

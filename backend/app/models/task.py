@@ -5,11 +5,15 @@ from __future__ import annotations
 import enum
 import uuid
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, Enum, String, Text, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.models.agent_run import AgentRun
 
 
 class TaskStatus(enum.StrEnum):
@@ -60,4 +64,9 @@ class Task(Base):
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False,
+    )
+
+    runs: Mapped[list[AgentRun]] = relationship(
+        back_populates="task",
+        cascade="all, delete-orphan",
     )

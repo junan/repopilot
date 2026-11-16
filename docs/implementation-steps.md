@@ -170,9 +170,9 @@ Acceptance: a task description yields a structured plan grounded in files, with 
 
 ### Step 14 — Run and step tables
 
-- [ ] Migration for `agent_runs` and `run_steps`.
-- [ ] A run belongs to a task. Steps are append-only and ordered.
-- [ ] Store status, timestamps, and token or cost fields.
+- [x] Migration for `agent_runs` and `run_steps`.
+- [x] A run belongs to a task. Steps are append-only and ordered.
+- [x] Store status, timestamps, and token or cost fields.
 
 **Commit:** `feat: persist agent runs and steps`
 
