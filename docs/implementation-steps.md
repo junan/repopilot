@@ -178,9 +178,9 @@ Acceptance: a task description yields a structured plan grounded in files, with 
 
 ### Step 15 — Model client and plan schema
 
-- [ ] Narrow client interface for a structured plan call.
-- [ ] Production implementation calls OpenAI. Tests use a fake.
-- [ ] Plan schema: findings, files to change, steps, and risks. Extra model fields are ignored.
+- [x] Narrow client interface for a structured plan call.
+- [x] Production implementation calls OpenAI. Tests use a fake.
+- [x] Plan schema: findings, files to change, steps, and risks. Extra model fields are ignored.
 
 **Commit:** `feat: add structured planning with a fake model in tests`
 

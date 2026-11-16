@@ -18,6 +18,14 @@ class Settings(BaseSettings):
     app_name: str = "RepoPilot"
     environment: str = "local"
     database_url: str = Field(..., description="PostgreSQL connection URL")
+    openai_api_key: str | None = Field(
+        default=None,
+        description="Optional OpenAI API key for planning calls",
+    )
+    openai_model: str = Field(
+        default="gpt-4.1-mini",
+        description="OpenAI model used for structured planning",
+    )
 
     @field_validator("database_url")
     @classmethod

@@ -15,6 +15,8 @@ def test_defaults_when_database_url_provided() -> None:
     assert settings.app_name == "RepoPilot"
     assert settings.environment == "local"
     assert settings.database_url.startswith("postgresql://")
+    assert settings.openai_api_key is None
+    assert settings.openai_model == "gpt-4.1-mini"
 
 
 def test_custom_values_override_defaults() -> None:
