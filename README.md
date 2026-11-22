@@ -1,107 +1,92 @@
 # RepoPilot
 
-Autonomous software engineering agent. See `RepoPilot_Project_Plan.md` and
-`docs/implementation-steps.md` for the full plan.
+RepoPilot is an AI software engineering agent that accepts a developer task,
+inspects an authorized repository with restricted tools, produces a structured
+plan, and (in later stages) prepares a reviewable draft pull request.
+
+The application — not the model — enforces permissions, path boundaries, tool
+allowlists, budgets, and approval gates.
+
+## Current status
+
+Iteration-focused backend foundation is in place:
+
+- FastAPI task API with idempotent create/list/get
+- PostgreSQL persistence for tasks, agent runs, and ordered run steps
+- Allowlisted repository clone at a pinned commit
+- Path-restricted list/read/search tools over a workspace
+- Structured planning client (`OpenAI` + test fake)
+
+Still ahead: a budgeted agent loop, sandboxed test execution, GitHub draft PRs,
+and a review dashboard.
+
+## Stack
+
+Python 3.13 · FastAPI · SQLAlchemy · Alembic · PostgreSQL · OpenAI API · Docker Compose · pytest · Ruff
 
 ## Prerequisites
 
 - Python 3.13+
 - Docker Compose
 
-## Setup
-
-From the repository root:
+## Quick start
 
 ```bash
 cp .env.example backend/.env
 docker compose up -d postgres
-docker compose ps
+
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e ".[dev]"
+alembic upgrade head
+uvicorn app.main:create_app --factory --reload --port 8000
 ```
 
-Host port `55432` avoids clashes with a local Postgres on `5432`. The connection
-string matches `.env.example`:
+Postgres listens on host port `55432`:
 
 ```text
 postgresql://repopilot:repopilot@localhost:55432/repopilot
 ```
 
-Install the backend package (including dev tools) in a virtualenv:
-
-```bash
-cd backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-```
-
-Apply database migrations:
-
-```bash
-cd backend
-alembic upgrade head
-```
-
-Stop the database with:
-
-```bash
-docker compose down
-```
-
-## Run the API
-
-With `backend/.env` present and the virtualenv activated:
-
-```bash
-cd backend
-uvicorn app.main:create_app --factory --reload --port 8000
-```
-
-Health check:
+## API demo
 
 ```bash
 curl -s http://127.0.0.1:8000/health
-```
 
-## Demo: create and fetch a task
-
-With the API running on port 8000:
-
-```bash
 curl -s -X POST http://127.0.0.1:8000/tasks \
   -H 'Content-Type: application/json' \
   -H 'Idempotency-Key: demo-1' \
   -d '{"description":"Investigate duplicate bookings"}'
-```
 
-Copy the returned `id`, then:
-
-```bash
 curl -s "http://127.0.0.1:8000/tasks/<task-id>"
-```
-
-List tasks:
-
-```bash
 curl -s http://127.0.0.1:8000/tasks
 ```
 
-## Lint and test
+## Sample repository
 
-From `backend/` with Postgres running and the virtualenv activated, one command
-runs Ruff and pytest:
+`examples/booking-sample` is a tiny booking service with an intentional
+idempotency bug. Repository-tool and agent tests use this fixture so demos do
+not require GitHub credentials.
+
+## Checks
 
 ```bash
 cd backend
 ./scripts/check
 ```
 
-Or run them separately:
+That runs Ruff and pytest. Integration tests expect Postgres (Compose URL by
+default via `DATABASE_URL`).
 
-```bash
-cd backend
-ruff check app tests migrations
-pytest
-```
+## Design notes
 
-Integration tests need `DATABASE_URL` (defaults to the Compose URL above when
-unset).
+- Tools receive structured arguments and return structured results — no raw shell
+- Workspace paths reject traversal, symlink escapes, secret-like names, and oversized files
+- Agent activity is stored as append-only run steps for auditability
+- Draft GitHub writes will require explicit human approval (not implemented yet)
+
+## License
+
+No license file is attached yet; treat the repository as source-available until
+one is added.
