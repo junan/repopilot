@@ -186,9 +186,9 @@ Acceptance: a task description yields a structured plan grounded in files, with 
 
 ### Step 16 — Tool registry
 
-- [ ] Tools from step 13 registered with Pydantic argument schemas.
-- [ ] Unknown tools and invalid arguments fail before execution.
-- [ ] Every call and result is stored as a run step. Results are size-limited.
+- [x] Tools from step 13 registered with Pydantic argument schemas.
+- [x] Unknown tools and invalid arguments fail before execution.
+- [x] Every call and result is stored as a run step. Results are size-limited.
 
 **Commit:** `feat: validate and record typed tool calls`
 
