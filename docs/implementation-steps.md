@@ -194,11 +194,11 @@ Acceptance: a task description yields a structured plan grounded in files, with 
 
 ### Step 17 — Bounded agent loop
 
-- [ ] Loop is plan, then a limited number of tool calls, then a final plan or summary.
-- [ ] Caps for steps, runtime, and token or cost budget.
-- [ ] Hitting a cap stops the run as `FAILED` with a recorded reason.
-- [ ] Tool output is data for the model, never new permissions.
-- [ ] API or service method returns the stored plan and steps for a task.
+- [x] Loop is plan, then a limited number of tool calls, then a final plan or summary.
+- [x] Caps for steps, runtime, and token or cost budget.
+- [x] Hitting a cap stops the run as `FAILED` with a recorded reason.
+- [x] Tool output is data for the model, never new permissions.
+- [x] API or service method returns the stored plan and steps for a task.
 
 **Commit:** `feat: run a budgeted planning loop`
 

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -23,3 +25,12 @@ class PlanRequest(BaseModel):
 
     task_description: str = Field(min_length=1)
     repository_context: str = ""
+
+
+class ToolCallRequest(BaseModel):
+    """Model-proposed tool invocation. Arguments are validated by the registry."""
+
+    model_config = ConfigDict(extra="ignore")
+
+    name: str = Field(min_length=1)
+    arguments: dict[str, Any] = Field(default_factory=dict)
